@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Conversation } from '@/modules/conversations/types';
+import { Button } from '@/shared/components/ui/button';
 
 export default function ConversationsPage() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -18,7 +19,9 @@ export default function ConversationsPage() {
         const data = await response.json();
         setConversations(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error fetching conversations');
+        setError(
+          err instanceof Error ? err.message : 'Error fetching conversations',
+        );
       } finally {
         setLoading(false);
       }
@@ -46,6 +49,8 @@ export default function ConversationsPage() {
           ))}
         </ul>
       )}
+
+      <Button>Click me</Button>
     </div>
   );
 }
