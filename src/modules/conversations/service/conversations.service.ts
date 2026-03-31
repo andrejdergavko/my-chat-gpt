@@ -1,11 +1,9 @@
-import { cookies } from 'next/headers';
-import { createClient } from '@/shared/utils/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { Conversation } from '../types';
 
 export class ConversationsService {
   async getAllConversations(): Promise<Conversation[]> {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = await createClient();
 
     const { data, error } = await supabase
       .from('conversations')
