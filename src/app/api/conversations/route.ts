@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { ConversationsService } from '@/modules/conversations/service/conversations.service';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const service = new ConversationsService();
     const conversations = await service.getAllConversations();
