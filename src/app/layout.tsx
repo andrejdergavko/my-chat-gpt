@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Sidebar from '@/shared/components/layout/Sidebar';
+import { TooltipProvider } from '@/shared/components/ui/tooltip';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       className={cn(
         'h-full',
         'antialiased',
+        'dark',
         geistSans.variable,
         geistMono.variable,
         'font-sans',
@@ -39,15 +41,17 @@ export default function RootLayout({
       )}
     >
       <body>
-        <div className="grid grid-cols-[auto_1fr] h-full">
-          <div className="w-[200px]">
-            <Sidebar />
+        <TooltipProvider>
+          <div className="grid grid-cols-[auto_1fr] h-full">
+            <div>
+              <Sidebar />
+            </div>
+            {/* <div>
+              <div>Header</div>
+              <div>{children}</div>
+            </div> */}
           </div>
-          <div>
-            <div>Header</div>
-            <div>{children}</div>
-          </div>
-        </div>
+        </TooltipProvider>
       </body>
     </html>
   );

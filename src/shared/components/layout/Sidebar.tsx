@@ -1,5 +1,12 @@
 'use client';
 
+import { AppSidebar } from '../app-sidebar';
+import { SidebarProvider } from '../ui/sidebar';
+
 export default function Sidebar() {
-  return <aside className="h-full bg-gray-100">Sidebar</aside>;
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+    </SidebarProvider>
+  );
 }
