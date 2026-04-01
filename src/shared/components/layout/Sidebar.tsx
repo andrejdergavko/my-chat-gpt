@@ -1,5 +1,5 @@
 'use client';
 
 export default function Sidebar() {
-  return <aside className="w-64 ">Sidebar</aside>;
+  return <aside className="h-full bg-gray-100">Sidebar</aside>;
 }
