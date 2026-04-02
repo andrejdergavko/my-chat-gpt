@@ -67,8 +67,12 @@ export default function Header() {
       </DropdownMenu>
 
       <div className="flex gap-3">
-        <Button onClick={openLoginModal}>Войти</Button>
-        <Button variant="outline">Зарегистрироваться бесплатно</Button>
+        <Button size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
+          Войти
+        </Button>
+        <Button variant="outline" size="lg" className="rounded-4xl px-4">
+          Зарегистрироваться бесплатно
+        </Button>
       </div>
     </header>
   );
