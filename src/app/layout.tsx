@@ -6,6 +6,8 @@ import Sidebar from '@/shared/components/layout/Sidebar';
 import Header from '@/shared/components/layout/Header';
 import { TooltipProvider } from '@/shared/components/ui/tooltip';
 import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
+import { LoginModalProvider } from '@/shared/providers/LoginModalProvider';
+import { LoginModal } from '@/shared/components/modals/LoginModal';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -43,15 +45,18 @@ export default function RootLayout({
       )}
     >
       <body>
-        <TooltipProvider>
-          <SidebarProvider>
-            <Sidebar />
-            <SidebarInset>
-              <Header />
-              <main className="flex-1 overflow-auto">{children}</main>
-            </SidebarInset>
-          </SidebarProvider>
-        </TooltipProvider>
+        <LoginModalProvider>
+          <TooltipProvider>
+            <SidebarProvider>
+              <Sidebar />
+              <SidebarInset>
+                <Header />
+                <main className="flex-1 overflow-auto">{children}</main>
+              </SidebarInset>
+            </SidebarProvider>
+          </TooltipProvider>
+          <LoginModal />
+        </LoginModalProvider>
       </body>
     </html>
   );

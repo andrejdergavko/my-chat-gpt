@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
+import { useLoginModal } from '@/shared/providers/LoginModalProvider';
 
 const models = [
   {
@@ -27,6 +28,7 @@ const models = [
 
 export default function Header() {
   const [selectedModel, setSelectedModel] = useState(models[0]);
+  const { openLoginModal } = useLoginModal();
 
   return (
     <header className="flex items-center justify-between px-6 py-2">
@@ -65,7 +67,7 @@ export default function Header() {
       </DropdownMenu>
 
       <div className="flex gap-3">
-        <Button>Войти</Button>
+        <Button onClick={openLoginModal}>Войти</Button>
         <Button variant="outline">Зарегистрироваться бесплатно</Button>
       </div>
     </header>
