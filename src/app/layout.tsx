@@ -3,7 +3,9 @@ import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Sidebar from '@/shared/components/layout/Sidebar';
+import Header from '@/shared/components/layout/Header';
 import { TooltipProvider } from '@/shared/components/ui/tooltip';
+import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -42,15 +44,13 @@ export default function RootLayout({
     >
       <body>
         <TooltipProvider>
-          <div className="grid grid-cols-[auto_1fr] h-full">
-            <div>
-              <Sidebar />
-            </div>
-            {/* <div>
-              <div>Header</div>
-              <div>{children}</div>
-            </div> */}
-          </div>
+          <SidebarProvider>
+            <Sidebar />
+            <SidebarInset>
+              <Header />
+              <main className="flex-1 overflow-auto">{children}</main>
+            </SidebarInset>
+          </SidebarProvider>
         </TooltipProvider>
       </body>
     </html>
