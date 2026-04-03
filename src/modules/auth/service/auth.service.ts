@@ -1,5 +1,3 @@
-'use server';
-
 import { createClient } from '@/lib/supabase/server';
 
 export class AuthService {
@@ -30,6 +28,22 @@ export class AuthService {
       console.error('Sign-out error:', error);
       throw error;
     }
+  }
+
+  async getCurrentUser() {
+    const supabase = await createClient();
+
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error) {
+      console.error('Get user error:', error);
+      throw error;
+    }
+
+    return user;
   }
 }
 

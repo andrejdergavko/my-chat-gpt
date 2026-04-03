@@ -7,7 +7,7 @@ import { TooltipProvider } from '@/shared/components/ui/tooltip';
 import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
 import { LoginModalProvider, LoginModal } from '@/modules/auth';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
-import { Sidebar } from '@/shared/components/layout/Sidebar';
+import Sidebar from '@/shared/components/layout/Sidebar/Sidebar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
