@@ -70,7 +70,13 @@ export function Chat({ onSendMessage, isLoading = false }: ChatProps) {
   return (
     <div className="flex flex-col h-full w-[770px]">
       <ChatMessages messages={messages} />
-      <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+      <div className="pt-4 pb-2">
+        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+        <p className="w-full mt-2 text-center text-xs font-medium text-muted-foreground">
+          ChatGPT может допускать ошибки. Проверяйте важную информацию. Смотрите
+          настройки cookie-файлов.
+        </p>
+      </div>
     </div>
   );
 }
