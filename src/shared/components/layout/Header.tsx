@@ -70,7 +70,7 @@ export default function Header() {
         <Button size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
           Войти
         </Button>
-        <Button variant="outline" size="lg" className="rounded-4xl px-4">
+        <Button variant="outline" size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
           Зарегистрироваться бесплатно
         </Button>
       </div>
