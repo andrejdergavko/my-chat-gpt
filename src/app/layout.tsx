@@ -2,10 +2,13 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import Sidebar from '@/shared/components/layout/Sidebar';
 import Header from '@/shared/components/layout/Header';
 import { TooltipProvider } from '@/shared/components/ui/tooltip';
-import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarInset,
+  SidebarProvider,
+} from '@/shared/components/ui/sidebar';
 import { LoginModalProvider } from '@/shared/providers/LoginModalProvider';
 import { LoginModal } from '@/shared/components/modals/LoginModal';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
