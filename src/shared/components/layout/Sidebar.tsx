@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
 import {
-  Sidebar,
+  Sidebar as SidebarComponent,
   SidebarHeader,
   SidebarContent,
   SidebarMenu,
@@ -29,7 +29,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-export function AppSidebar() {
+export function Sidebar() {
   const { toggleSidebar, open: isSidebarOpen } = useSidebar();
   const [isLogoHovering, setIsLogoHovering] = useState(false);
   const { isMobile } = useSidebar();
@@ -44,7 +44,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar collapsible="icon">
+    <SidebarComponent collapsible="icon">
       <SidebarHeader className="flex flex-row items-center justify-between ">
         <Button
           className="w-8 h-8 p-0"
@@ -157,6 +157,6 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-    </Sidebar>
+    </SidebarComponent>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { LoginForm } from '@/shared/components/forms/LoginForm';
-import { useLoginModal } from '@/shared/providers/LoginModalProvider';
+import { LoginForm } from '@/modules/auth/components/LoginForm';
+import { useLoginModal } from '@/modules/auth/providers/LoginModalProvider';
 
 export function LoginModal() {
   const { isLoginModalOpen, closeLoginModal } = useLoginModal();

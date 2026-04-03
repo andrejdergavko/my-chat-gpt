@@ -4,14 +4,11 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import Header from '@/shared/components/layout/Header';
 import { TooltipProvider } from '@/shared/components/ui/tooltip';
-import {
-  Sidebar,
-  SidebarInset,
-  SidebarProvider,
-} from '@/shared/components/ui/sidebar';
-import { LoginModalProvider } from '@/shared/providers/LoginModalProvider';
-import { LoginModal } from '@/shared/components/modals/LoginModal';
+import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
+import { LoginModalProvider } from '@/modules/auth/providers/LoginModalProvider';
+import { LoginModal } from '@/modules/auth/components/LoginModal';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
+import { Sidebar } from '@/shared/components/layout/Sidebar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 

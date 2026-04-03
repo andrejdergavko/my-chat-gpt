@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
-import { useLoginModal } from '@/shared/providers/LoginModalProvider';
+import { useLoginModal } from '@/modules/auth/providers/LoginModalProvider';
 
 const models = [
   {
@@ -70,7 +70,12 @@ export default function Header() {
         <Button size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
           Войти
         </Button>
-        <Button variant="outline" size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
+        <Button
+          variant="outline"
+          size="lg"
+          className="rounded-4xl px-4"
+          onClick={openLoginModal}
+        >
           Зарегистрироваться бесплатно
         </Button>
       </div>
