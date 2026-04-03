@@ -5,8 +5,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/shared/components/layout/Header';
 import { TooltipProvider } from '@/shared/components/ui/tooltip';
 import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
-import { LoginModalProvider } from '@/modules/auth/providers/LoginModalProvider';
-import { LoginModal } from '@/modules/auth/components/LoginModal';
+import { LoginModalProvider, LoginModal } from '@/modules/auth';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
 import { Sidebar } from '@/shared/components/layout/Sidebar';
 

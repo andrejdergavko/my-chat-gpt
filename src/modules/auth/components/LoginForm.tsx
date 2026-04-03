@@ -11,7 +11,7 @@ import {
 import { Field, FieldGroup } from '@/shared/components/ui/field';
 import { GoogleIcon } from '@/shared/components/icons/GoogleIcon';
 import { cn } from '@/lib/utils';
-import { useGoogleSignIn } from '@/modules/auth/hooks/useGoogleSignIn';
+import { useGoogleSignIn } from '@/modules/auth';
 
 export function LoginForm({
   className,

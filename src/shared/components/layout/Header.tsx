@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
-import { useLoginModal } from '@/modules/auth/providers/LoginModalProvider';
+import { useLoginModal } from '@/modules/auth';
 
 const models = [
   {
