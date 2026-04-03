@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { CopyButton } from '@/shared/components/CopyButton';
 
 interface Message {
   id: string;
@@ -14,7 +15,7 @@ interface ChatMessagesProps {
 export function ChatMessages({ messages }: ChatMessagesProps) {
   return (
     <div className="flex-1 w-full overflow-y-auto">
-      <div className="flex flex-col gap-4 p-4">
+      <div className="flex flex-col gap-10 p-4">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-gray-400">
             <p>Начни разговор</p>
@@ -25,25 +26,22 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
               key={message.id}
               className={cn(
                 'flex gap-3',
-                message.role === 'user' ? 'justify-end' : 'justify-start'
+                message.role === 'user' ? 'justify-end' : 'justify-start',
               )}
             >
               <div
                 className={cn(
-                  'max-w-xs lg:max-w-md px-4 py-2 rounded-lg',
+                  'rounded-lg',
                   message.role === 'user'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 text-black'
+                    ? 'max-w-[540px] bg-input rounded-3xl px-4 py-2 text-foreground'
+                    : 'max-w-full bg-transparent text-foreground',
                 )}
               >
-                <p className="text-sm">{message.content}</p>
-                {message.timestamp && (
-                  <span className="text-xs opacity-70 mt-1 block">
-                    {message.timestamp.toLocaleTimeString('ru-RU', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
+                <p className="text-[16px] font-medium">{message.content}</p>
+                {message.role === 'assistant' && (
+                  <div className="mt-2 flex items-center gap-2 ml-[-6px]">
+                    <CopyButton content={message.content} />
+                  </div>
                 )}
               </div>
             </div>
