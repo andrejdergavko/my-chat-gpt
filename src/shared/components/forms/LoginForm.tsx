@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/shared/components/ui/button';
 import {
   Card,
@@ -12,38 +11,16 @@ import {
 import { Field, FieldGroup } from '@/shared/components/ui/field';
 import { GoogleIcon } from '@/shared/components/icons/GoogleIcon';
 import { cn } from '@/lib/utils';
+import { useGoogleSignIn } from '@/shared/hooks/useGoogleSignIn';
+
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { mutate: signInWithGoogle, isPending, error } = useGoogleSignIn();
 
-  const handleGoogleSignIn = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch('/api/auth/google', {
-        method: 'POST',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to get Google OAuth URL');
-      }
-
-      const { url } = await response.json();
-
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'An error occurred';
-      setError(message);
-      console.error('Sign-in error:', err);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
   };
 
   return (
@@ -67,11 +44,19 @@ export function LoginForm({
                   type="button"
                   className="rounded-4xl h-12 w-full"
                   onClick={handleGoogleSignIn}
-                  disabled={isLoading}
+                  disabled={isPending}
                 >
                   <GoogleIcon className="mr-2" />
+                  {isPending ? 'Загрузка...' : 'Продолжить с Google'}
                 </Button>
               </Field>
+              {error && (
+                <Field>
+                  <div className="text-red-500 text-sm text-center">
+                    Произошла ошибка при входе
+                  </div>
+                </Field>
+              )}
             </FieldGroup>
           </form>
         </CardContent>
