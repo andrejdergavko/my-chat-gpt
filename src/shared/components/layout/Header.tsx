@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
-import { useLoginModal } from '@/modules/auth';
+import { useLoginModal, useAuth } from '@/modules/auth';
 
 const models = [
   {
@@ -29,6 +29,7 @@ const models = [
 export default function Header() {
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const { openLoginModal } = useLoginModal();
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="flex items-center justify-between px-6 py-2">
@@ -67,17 +68,21 @@ export default function Header() {
       </DropdownMenu>
 
       <div className="flex gap-3">
-        <Button size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
-          Войти
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          className="rounded-4xl px-4"
-          onClick={openLoginModal}
-        >
-          Зарегистрироваться бесплатно
-        </Button>
+        {!isAuthenticated && (
+          <>
+            <Button size="lg" className="rounded-4xl px-4" onClick={openLoginModal}>
+              Войти
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-4xl px-4"
+              onClick={openLoginModal}
+            >
+              Зарегистрироваться бесплатно
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );
