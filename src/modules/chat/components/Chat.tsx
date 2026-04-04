@@ -117,7 +117,7 @@ export function Chat({ onSendMessage, isLoading = false }: ChatProps) {
 
   return (
     <div className="relative h-full w-full">
-      <div className="flex flex-col items-center h-full w-full overflow-auto mb-20 [clip-path:inset(0px_0px_50px_0px)]">
+      <div className="flex flex-col items-center h-full w-full overflow-auto mb-20 [clip-path:polygon(0%_0%,100%_0%,100%_100%,90%_100%,90%_calc(100%-50px),0%_calc(100%-50px))]">
         <div className="w-[770px] mt-20 mb-[260px]">
           <ChatMessages messages={messages} />
         </div>

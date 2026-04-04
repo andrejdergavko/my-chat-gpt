@@ -131,7 +131,7 @@
     }
 
   /* Scrollbar styling */
-  /* ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 8px;
   }
   ::-webkit-scrollbar-track {
@@ -143,5 +143,11 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #777;
-  } */
+  }
+  
+  /* Firefox scrollbar */
+  * {
+    scrollbar-color: #555 transparent;
+    scrollbar-width: thin;
+  }
 }
