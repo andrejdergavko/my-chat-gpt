@@ -59,7 +59,7 @@ Never use raw `Input` or `Textarea` inside an `InputGroup`.
 **Correct:**
 
 ```tsx
-import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
+import { InputGroup, InputGroupInput } from '@/components/ui/input-group';
 
 <InputGroup>
   <InputGroupInput placeholder="Search..." />
@@ -88,9 +88,9 @@ Never place a `Button` directly inside or adjacent to an `Input` with custom pos
 ```tsx
 import {
   InputGroup,
-  InputGroupInput,
   InputGroupAddon,
-} from "@/components/ui/input-group";
+  InputGroupInput,
+} from '@/components/ui/input-group';
 
 <InputGroup>
   <InputGroupInput placeholder="Search..." />
@@ -129,7 +129,7 @@ const [selected, setSelected] = useState("daily")
 **Correct:**
 
 ```tsx
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 <ToggleGroup spacing={2}>
   <ToggleGroupItem value="daily">Daily</ToggleGroupItem>

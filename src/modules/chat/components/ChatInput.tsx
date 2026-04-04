@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { Button } from "@/shared/components/ui/button";
-import { ArrowUp } from "lucide-react";
+import { Button } from '@/shared/components/ui/button';
+import { useRef, useState } from 'react';
+import { ArrowUp } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage?: (message: string) => void;
@@ -11,21 +11,21 @@ export function ChatInput({
   onSendMessage,
   isLoading = false,
 }: ChatInputProps) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
     if (message.trim()) {
       onSendMessage?.(message);
-      setMessage("");
+      setMessage('');
       if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = 'auto';
       }
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -35,7 +35,7 @@ export function ChatInput({
     setMessage(e.target.value);
 
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 200)}px`;
     }
   };
@@ -57,7 +57,7 @@ export function ChatInput({
         disabled={isLoading || !message.trim()}
         size="icon"
         className="h-10 w-10 shrink-0 rounded-full bg-white hover:opacity-80"
-        style={{ backgroundColor: "white" }}
+        style={{ backgroundColor: 'white' }}
       >
         <ArrowUp className="h-4 w-4" />
       </Button>

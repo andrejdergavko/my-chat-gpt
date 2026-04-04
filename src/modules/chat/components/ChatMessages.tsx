@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
-import { CopyButton } from "@/shared/components/CopyButton";
+import { cn } from '@/lib/utils';
+import { CopyButton } from '@/shared/components/CopyButton';
 
 interface Message {
   id: string;
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   timestamp?: Date;
 }
@@ -25,20 +25,20 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
             <div
               key={message.id}
               className={cn(
-                "flex gap-3",
-                message.role === "user" ? "justify-end" : "justify-start",
+                'flex gap-3',
+                message.role === 'user' ? 'justify-end' : 'justify-start',
               )}
             >
               <div
                 className={cn(
-                  "rounded-lg",
-                  message.role === "user"
-                    ? "bg-input text-foreground max-w-[540px] rounded-3xl px-4 py-2"
-                    : "text-foreground max-w-full bg-transparent",
+                  'rounded-lg',
+                  message.role === 'user'
+                    ? 'bg-input text-foreground max-w-[540px] rounded-3xl px-4 py-2'
+                    : 'text-foreground max-w-full bg-transparent',
                 )}
               >
                 <p className="text-[16px] font-medium">{message.content}</p>
-                {message.role === "assistant" && (
+                {message.role === 'assistant' && (
                   <div className="mt-2 ml-[-6px] flex items-center gap-2">
                     <CopyButton content={message.content} />
                   </div>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/shared/components/ui/button";
-import { useLoginModal } from "@/modules/auth";
+import { useLoginModal } from '@/modules/auth';
+import { Button } from '@/shared/components/ui/button';
 
 export function SidebarUnauthenticated() {
   const { openLoginModal } = useLoginModal();
@@ -14,7 +14,7 @@ export function SidebarUnauthenticated() {
         </h3>
         <p
           className="text-sidebar-accent-foreground/70 mt-3"
-          style={{ fontSize: "14px" }}
+          style={{ fontSize: '14px' }}
         >
           Войдите в систему, чтобы получать ответы на основе сохраненных чатов,
           а также создавать изображения и загружать файлы.

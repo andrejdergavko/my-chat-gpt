@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { ConversationsService } from "@/modules/conversations/service/conversations.service";
+import { ConversationsService } from '@/modules/conversations/service/conversations.service';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
@@ -8,13 +8,13 @@ export async function GET() {
 
     return NextResponse.json(conversations);
   } catch (error) {
-    console.error("Error fetching conversations:", error);
+    console.error('Error fetching conversations:', error);
     return NextResponse.json(
       {
         error:
           error instanceof Error
             ? error.message
-            : "Failed to fetch conversations",
+            : 'Failed to fetch conversations',
       },
       { status: 500 },
     );

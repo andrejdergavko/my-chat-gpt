@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Chat } from "@/modules/chat";
+import { Chat } from '@/modules/chat';
 
 export default function Home() {
   const handleSendMessage = (message: string) => {
-    console.log("Сообщение отправлено:", message);
+    console.log('Сообщение отправлено:', message);
     // Здесь будет подключение к бэкэнду
   };
 

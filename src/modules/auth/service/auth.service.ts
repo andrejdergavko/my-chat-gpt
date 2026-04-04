@@ -1,18 +1,18 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export class AuthService {
   async getGoogleOAuthUrl() {
     const supabase = await createClient();
 
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/auth/callback`,
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/callback`,
       },
     });
 
     if (error) {
-      console.error("Google OAuth error:", error);
+      console.error('Google OAuth error:', error);
       throw error;
     }
 
@@ -25,7 +25,7 @@ export class AuthService {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.error("Sign-out error:", error);
+      console.error('Sign-out error:', error);
       throw error;
     }
   }
@@ -39,7 +39,7 @@ export class AuthService {
     } = await supabase.auth.getUser();
 
     if (error) {
-      console.error("Get user error:", error);
+      console.error('Get user error:', error);
       throw error;
     }
 

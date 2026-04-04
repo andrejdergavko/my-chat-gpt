@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { ChatMessages } from "./ChatMessages";
-import { ChatInput } from "./ChatInput";
+import { useEffect, useState } from 'react';
+import { ChatInput } from './ChatInput';
+import { ChatMessages } from './ChatMessages';
 
 interface Message {
   id: string;
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   timestamp?: Date;
 }
@@ -20,70 +20,70 @@ const fetchInitialMessages = async (): Promise<Message[]> => {
     setTimeout(() => {
       resolve([
         {
-          id: "1",
-          role: "assistant",
-          content: "Привет! Я твой ассистент. Чем я могу тебе помочь?",
+          id: '1',
+          role: 'assistant',
+          content: 'Привет! Я твой ассистент. Чем я могу тебе помочь?',
           timestamp: new Date(Date.now() - 10 * 60 * 1000),
         },
         {
-          id: "2",
-          role: "user",
-          content: "Привет! Расскажи мне о себе.",
+          id: '2',
+          role: 'user',
+          content: 'Привет! Расскажи мне о себе.',
           timestamp: new Date(Date.now() - 8 * 60 * 1000),
         },
         {
-          id: "3",
-          role: "assistant",
+          id: '3',
+          role: 'assistant',
           content:
-            "Я AI-ассистент, созданный для помощи с различными задачами. Я могу помочь с написанием, анализом, кодированием и многим другим!",
+            'Я AI-ассистент, созданный для помощи с различными задачами. Я могу помочь с написанием, анализом, кодированием и многим другим!',
           timestamp: new Date(Date.now() - 5 * 60 * 1000),
         },
         {
-          id: "4",
-          role: "user",
-          content: "Как дела?",
+          id: '4',
+          role: 'user',
+          content: 'Как дела?',
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
         },
         {
-          id: "5",
-          role: "assistant",
-          content: "Все хорошо!",
+          id: '5',
+          role: 'assistant',
+          content: 'Все хорошо!',
           timestamp: new Date(Date.now() - 1 * 60 * 1000),
         },
         {
-          id: "6",
-          role: "user",
-          content: "Как дела?",
+          id: '6',
+          role: 'user',
+          content: 'Как дела?',
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
         },
         {
-          id: "7",
-          role: "assistant",
-          content: "Все хорошо!",
+          id: '7',
+          role: 'assistant',
+          content: 'Все хорошо!',
           timestamp: new Date(Date.now() - 1 * 60 * 1000),
         },
         {
-          id: "8",
-          role: "user",
-          content: "Как дела?",
+          id: '8',
+          role: 'user',
+          content: 'Как дела?',
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
         },
         {
-          id: "9",
-          role: "assistant",
-          content: "Все хорошо!",
+          id: '9',
+          role: 'assistant',
+          content: 'Все хорошо!',
           timestamp: new Date(Date.now() - 1 * 60 * 1000),
         },
         {
-          id: "10",
-          role: "user",
-          content: "Как дела?",
+          id: '10',
+          role: 'user',
+          content: 'Как дела?',
           timestamp: new Date(Date.now() - 2 * 60 * 1000),
         },
         {
-          id: "11",
-          role: "assistant",
-          content: "Все хорошо!",
+          id: '11',
+          role: 'assistant',
+          content: 'Все хорошо!',
           timestamp: new Date(Date.now() - 1 * 60 * 1000),
         },
       ]);
@@ -104,7 +104,7 @@ export function Chat({ onSendMessage, isLoading = false }: ChatProps) {
     // Добавляем сообщение пользователя
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: "user",
+      role: 'user',
       content,
       timestamp: new Date(),
     };

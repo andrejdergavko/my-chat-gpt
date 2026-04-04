@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { LoginForm, useLoginModal } from "@/modules/auth";
+import { LoginForm, useLoginModal } from '@/modules/auth';
+import { useEffect } from 'react';
 
 export function LoginModal() {
   const { isLoginModalOpen, closeLoginModal } = useLoginModal();
@@ -12,11 +12,11 @@ export function LoginModal() {
     if (!isOpen) return;
 
     const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
 
-    document.addEventListener("keydown", handleEscapeKey);
-    return () => document.removeEventListener("keydown", handleEscapeKey);
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;

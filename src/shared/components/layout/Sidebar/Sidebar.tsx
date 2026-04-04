@@ -1,26 +1,25 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { Sidebar as SidebarIcon, SquarePen } from "lucide-react";
+import { useAuth } from '@/modules/auth';
+import { Button } from '@/shared/components/ui/button';
 import {
   Sidebar as SidebarComponent,
-  SidebarHeader,
   SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  useSidebar,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarSeparator,
-} from "@/shared/components/ui/sidebar";
-import { Button } from "@/shared/components/ui/button";
-import { useState } from "react";
-
-import { SidebarUnauthenticated } from "./SidebarUnauthenticated";
-import { SidebarUser } from "./SidebarUser";
-import { useAuth } from "@/modules/auth";
+  useSidebar,
+} from '@/shared/components/ui/sidebar';
+import Image from 'next/image';
+import { useState } from 'react';
+import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
+import { SidebarUnauthenticated } from './SidebarUnauthenticated';
+import { SidebarUser } from './SidebarUser';
 
 export default function Sidebar() {
   const { toggleSidebar, open: isSidebarOpen } = useSidebar();
@@ -28,12 +27,12 @@ export default function Sidebar() {
   const { isAuthenticated } = useAuth();
 
   const handleLogoClick = () => {
-    isSidebarOpen ? (window.location.href = "/") : toggleSidebar();
+    isSidebarOpen ? (window.location.href = '/') : toggleSidebar();
   };
 
   const recentChats = [
-    { id: 1, title: "Chat 1" },
-    { id: 2, title: "Chat 2" },
+    { id: 1, title: 'Chat 1' },
+    { id: 2, title: 'Chat 2' },
   ];
 
   return (
@@ -87,7 +86,7 @@ export default function Sidebar() {
             {recentChats.map((chat) => (
               <SidebarMenuItem key={chat.id}>
                 <SidebarMenuButton asChild>
-                  <a href={"item.url"}>
+                  <a href={'item.url'}>
                     <span>{chat.title}</span>
                   </a>
                 </SidebarMenuButton>

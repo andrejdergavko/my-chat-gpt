@@ -1,4 +1,4 @@
-import { Sidebar } from "@/shared/components/ui/sidebar";
+import { Sidebar } from '@/shared/components/ui/sidebar';
 
 export default function ChatLayout({
   children,

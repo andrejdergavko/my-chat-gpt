@@ -1,29 +1,29 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
-import Header from "@/shared/components/layout/Header";
-import { TooltipProvider } from "@/shared/components/ui/tooltip";
-import { SidebarInset, SidebarProvider } from "@/shared/components/ui/sidebar";
-import { LoginModalProvider, LoginModal } from "@/modules/auth";
-import { ReactQueryProvider } from "@/shared/providers/ReactQueryProvider";
-import Sidebar from "@/shared/components/layout/Sidebar/Sidebar";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import './globals.css';
+import { cn } from '@/lib/utils';
+import { LoginModal, LoginModalProvider } from '@/modules/auth';
+import Header from '@/shared/components/layout/Header';
+import Sidebar from '@/shared/components/layout/Sidebar/Sidebar';
+import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar';
+import { TooltipProvider } from '@/shared/components/ui/tooltip';
+import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["cyrillic"],
+  variable: '--font-geist-sans',
+  subsets: ['cyrillic'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["cyrillic"],
+  variable: '--font-geist-mono',
+  subsets: ['cyrillic'],
 });
 
 export const metadata: Metadata = {
-  title: "ChatGPT",
-  description: "ChatGPT clone",
+  title: 'ChatGPT',
+  description: 'ChatGPT clone',
 };
 
 export default function RootLayout({
@@ -35,12 +35,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "h-full",
-        "antialiased",
-        "dark",
+        'h-full',
+        'antialiased',
+        'dark',
         geistSans.variable,
         geistMono.variable,
-        "font-sans",
+        'font-sans',
         inter.variable,
       )}
     >

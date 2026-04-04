@@ -1,14 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 
 export function useGoogleSignIn() {
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch("/api/auth/google", {
-        method: "POST",
+      const response = await fetch('/api/auth/google', {
+        method: 'POST',
       });
 
       if (!response.ok) {
-        throw new Error("Не удалось получить URL Google OAuth");
+        throw new Error('Не удалось получить URL Google OAuth');
       }
 
       const { url } = await response.json();
@@ -20,7 +20,7 @@ export function useGoogleSignIn() {
       }
     },
     onError: (error: Error) => {
-      console.error("Ошибка входа:", error);
+      console.error('Ошибка входа:', error);
     },
   });
 }

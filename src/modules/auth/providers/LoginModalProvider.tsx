@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface LoginModalContextType {
   isLoginModalOpen: boolean;
@@ -31,7 +31,7 @@ export function LoginModalProvider({ children }: { children: ReactNode }) {
 export function useLoginModal() {
   const context = useContext(LoginModalContext);
   if (context === undefined) {
-    throw new Error("useLoginModal must be used within a LoginModalProvider");
+    throw new Error('useLoginModal must be used within a LoginModalProvider');
   }
   return context;
 }

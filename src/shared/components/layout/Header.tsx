@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ChevronDown, Zap, Brain, Check } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
+import { useAuth, useLoginModal } from '@/modules/auth';
+import { Button } from '@/shared/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu";
-import { useLoginModal, useAuth } from "@/modules/auth";
+} from '@/shared/components/ui/dropdown-menu';
+import { useState } from 'react';
+import { Brain, Check, ChevronDown, Zap } from 'lucide-react';
 
 const models = [
   {
     id: 1,
-    name: "ChatGPT",
-    description: "Отлично подходит для повседневных задач",
+    name: 'ChatGPT',
+    description: 'Отлично подходит для повседневных задач',
     icon: Zap,
   },
   {
     id: 2,
-    name: "Deep Seek",
-    description: "Отлично подходит для сложных задач",
+    name: 'Deep Seek',
+    description: 'Отлично подходит для сложных задач',
     icon: Brain,
   },
 ];

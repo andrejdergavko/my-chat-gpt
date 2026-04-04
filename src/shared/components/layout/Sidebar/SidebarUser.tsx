@@ -1,7 +1,9 @@
-"use client";
+'use client';
 
-import { ChevronsUpDown, LogOut } from "lucide-react";
-import { SidebarMenuButton, useSidebar } from "@/shared/components/ui/sidebar";
+import { useAuth, useLogout } from '@/modules/auth';
+import { SidebarMenuButton, useSidebar } from '@/shared/components/ui/sidebar';
+import { ChevronsUpDown, LogOut } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { useAuth, useLogout } from "@/modules/auth";
+} from '../../ui/dropdown-menu';
 
 export function SidebarUser() {
   const { isMobile } = useSidebar();
@@ -19,8 +19,8 @@ export function SidebarUser() {
   const { user } = useAuth();
 
   const userFullName =
-    user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
-  const userEmail = user?.email || "";
+    user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+  const userEmail = user?.email || '';
 
   const handleLogout = () => {
     logout();
@@ -52,7 +52,7 @@ export function SidebarUser() {
 
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side={isMobile ? "bottom" : "right"}
+        side={isMobile ? 'bottom' : 'right'}
         align="end"
         sideOffset={4}
       >
@@ -76,7 +76,7 @@ export function SidebarUser() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout} disabled={isPending}>
           <LogOut />
-          {isPending ? "Выход..." : "Log out"}
+          {isPending ? 'Выход...' : 'Log out'}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

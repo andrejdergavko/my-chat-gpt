@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Copy } from "lucide-react";
-import { Button } from "@/shared/components/ui/button";
+import { Button } from '@/shared/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/shared/components/ui/tooltip";
+} from '@/shared/components/ui/tooltip';
+import { Copy } from 'lucide-react';
 
 interface CopyButtonProps {
   content: string;
@@ -15,7 +15,7 @@ interface CopyButtonProps {
 
 export function CopyButton({
   content,
-  tooltipText = "Копировать ответ",
+  tooltipText = 'Копировать ответ',
 }: CopyButtonProps) {
   const handleCopy = () => {
     navigator.clipboard.writeText(content);
