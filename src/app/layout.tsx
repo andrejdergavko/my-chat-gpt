@@ -51,8 +51,10 @@ export default function RootLayout({
               <SidebarProvider>
                 <Sidebar />
                 <SidebarInset>
-                  <Header />
-                  <main className="flex-1 overflow-auto">{children}</main>
+                  <div className="absolute top-0 left-0 right-0 z-10">
+                    <Header />
+                  </div>
+                  <main className="h-screen">{children}</main>
                 </SidebarInset>
               </SidebarProvider>
             </TooltipProvider>

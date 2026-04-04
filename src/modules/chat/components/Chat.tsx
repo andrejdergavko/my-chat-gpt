@@ -38,6 +38,54 @@ const fetchInitialMessages = async (): Promise<Message[]> => {
             'Я AI-ассистент, созданный для помощи с различными задачами. Я могу помочь с написанием, анализом, кодированием и многим другим!',
           timestamp: new Date(Date.now() - 5 * 60 * 1000),
         },
+        {
+          id: '4',
+          role: 'user',
+          content: 'Как дела?',
+          timestamp: new Date(Date.now() - 2 * 60 * 1000),
+        },
+        {
+          id: '5',
+          role: 'assistant',
+          content: 'Все хорошо!',
+          timestamp: new Date(Date.now() - 1 * 60 * 1000),
+        },
+        {
+          id: '6',
+          role: 'user',
+          content: 'Как дела?',
+          timestamp: new Date(Date.now() - 2 * 60 * 1000),
+        },
+        {
+          id: '7',
+          role: 'assistant',
+          content: 'Все хорошо!',
+          timestamp: new Date(Date.now() - 1 * 60 * 1000),
+        },
+        {
+          id: '8',
+          role: 'user',
+          content: 'Как дела?',
+          timestamp: new Date(Date.now() - 2 * 60 * 1000),
+        },
+        {
+          id: '9',
+          role: 'assistant',
+          content: 'Все хорошо!',
+          timestamp: new Date(Date.now() - 1 * 60 * 1000),
+        },
+        {
+          id: '10',
+          role: 'user',
+          content: 'Как дела?',
+          timestamp: new Date(Date.now() - 2 * 60 * 1000),
+        },
+        {
+          id: '11',
+          role: 'assistant',
+          content: 'Все хорошо!',
+          timestamp: new Date(Date.now() - 1 * 60 * 1000),
+        },
       ]);
     }, 300);
   });
@@ -68,9 +116,14 @@ export function Chat({ onSendMessage, isLoading = false }: ChatProps) {
   };
 
   return (
-    <div className="flex flex-col h-full w-[770px]">
-      <ChatMessages messages={messages} />
-      <div className="pt-4 pb-2">
+    <div className="relative h-full w-full">
+      <div className="flex flex-col items-center h-full w-full overflow-auto mb-20 [clip-path:inset(0px_0px_50px_0px)]">
+        <div className="w-[770px] mt-20 mb-[260px]">
+          <ChatMessages messages={messages} />
+        </div>
+      </div>
+
+      <div className="absolute w-[770px] bottom-0 left-1/2 -translate-x-1/2 right-0 pt-4 pb-2">
         <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
         <p className="w-full mt-2 text-center text-xs font-medium text-muted-foreground">
           ChatGPT может допускать ошибки. Проверяйте важную информацию. Смотрите
