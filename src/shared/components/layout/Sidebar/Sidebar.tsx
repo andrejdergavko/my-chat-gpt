@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
+import Image from "next/image";
+import { Sidebar as SidebarIcon, SquarePen } from "lucide-react";
 import {
   Sidebar as SidebarComponent,
   SidebarHeader,
@@ -14,13 +14,13 @@ import {
   SidebarGroupLabel,
   SidebarFooter,
   SidebarSeparator,
-} from '@/shared/components/ui/sidebar';
-import { Button } from '@/shared/components/ui/button';
-import { useState } from 'react';
+} from "@/shared/components/ui/sidebar";
+import { Button } from "@/shared/components/ui/button";
+import { useState } from "react";
 
-import { SidebarUnauthenticated } from './SidebarUnauthenticated';
-import { SidebarUser } from './SidebarUser';
-import { useAuth } from '@/modules/auth';
+import { SidebarUnauthenticated } from "./SidebarUnauthenticated";
+import { SidebarUser } from "./SidebarUser";
+import { useAuth } from "@/modules/auth";
 
 export default function Sidebar() {
   const { toggleSidebar, open: isSidebarOpen } = useSidebar();
@@ -28,19 +28,19 @@ export default function Sidebar() {
   const { isAuthenticated } = useAuth();
 
   const handleLogoClick = () => {
-    isSidebarOpen ? (window.location.href = '/') : toggleSidebar();
+    isSidebarOpen ? (window.location.href = "/") : toggleSidebar();
   };
 
   const recentChats = [
-    { id: 1, title: 'Chat 1' },
-    { id: 2, title: 'Chat 2' },
+    { id: 1, title: "Chat 1" },
+    { id: 2, title: "Chat 2" },
   ];
 
   return (
     <SidebarComponent collapsible="icon">
-      <SidebarHeader className="flex flex-row items-center justify-between ">
+      <SidebarHeader className="flex flex-row items-center justify-between">
         <Button
-          className="w-8 h-8 p-0"
+          className="h-8 w-8 p-0"
           variant="ghost"
           size="default"
           onClick={handleLogoClick}
@@ -87,7 +87,7 @@ export default function Sidebar() {
             {recentChats.map((chat) => (
               <SidebarMenuItem key={chat.id}>
                 <SidebarMenuButton asChild>
-                  <a href={'item.url'}>
+                  <a href={"item.url"}>
                     <span>{chat.title}</span>
                   </a>
                 </SidebarMenuButton>

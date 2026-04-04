@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 interface AuthResponse {
   user: any;
@@ -8,12 +8,12 @@ interface AuthResponse {
 
 export function useAuth() {
   const { data, isLoading, error } = useQuery<AuthResponse>({
-    queryKey: ['auth', 'currentUser'],
+    queryKey: ["auth", "currentUser"],
     queryFn: async () => {
-      const response = await fetch('/api/auth/me');
+      const response = await fetch("/api/auth/me");
 
       if (!response.ok) {
-        throw new Error('Failed to fetch current user');
+        throw new Error("Failed to fetch current user");
       }
 
       return response.json();
@@ -29,4 +29,3 @@ export function useAuth() {
     error,
   };
 }
-

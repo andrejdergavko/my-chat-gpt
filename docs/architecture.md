@@ -14,11 +14,15 @@ src/
 ## Directories
 
 ### `app/`
+
 Pages, layouts, and API routes.
+
 - `api/` - API endpoints
 
 ### `modules/`
+
 Each module is organized by domain (e.g., `conversations/`):
+
 ```
 modules/conversations/
 ├── service/      # Business logic & server methods
@@ -30,7 +34,9 @@ modules/conversations/
 ```
 
 ### `shared/`
+
 Reusable code across modules:
+
 - `components/` - Common UI components
 - `layouts/` - Global layouts
 - `hooks/` - Common hooks

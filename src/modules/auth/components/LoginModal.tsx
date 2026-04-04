@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { LoginForm, useLoginModal } from '@/modules/auth';
+import { useEffect } from "react";
+import { LoginForm, useLoginModal } from "@/modules/auth";
 
 export function LoginModal() {
   const { isLoginModalOpen, closeLoginModal } = useLoginModal();
@@ -12,18 +12,18 @@ export function LoginModal() {
     if (!isOpen) return;
 
     const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener('keydown', handleEscapeKey);
-    return () => document.removeEventListener('keydown', handleEscapeKey);
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="fixed w-full h-full inset-0 bg-black/40 flex items-center justify-center z-50"
+      className="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-black/40"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -31,7 +31,7 @@ export function LoginModal() {
       <div className="relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-muted-foreground hover:text-foreground z-10 cursor-pointer w-6 h-6 flex items-center justify-center"
+          className="text-muted-foreground hover:text-foreground absolute top-2 right-2 z-10 flex h-6 w-6 cursor-pointer items-center justify-center"
         >
           ✕
         </button>
