@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { CopyButton } from '@/shared/components/CopyButton';
 import { StreamingIndicator } from '@/shared/components/StreamingIndicator';
@@ -17,8 +18,13 @@ interface ChatMessagesProps {
 }
 
 export function ChatMessages({ messages, isStreaming }: ChatMessagesProps) {
+  const bottomRef = useRef<HTMLDivElement>(null);
   const lastAssistantId =
     [...messages].reverse().find((m) => m.role === 'assistant')?.id ?? null;
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages.length]);
 
   return (
     <div className="w-full flex-1 overflow-y-auto">
@@ -77,6 +83,7 @@ export function ChatMessages({ messages, isStreaming }: ChatMessagesProps) {
             );
           })
         )}
+        <div ref={bottomRef} />
       </div>
     </div>
   );
