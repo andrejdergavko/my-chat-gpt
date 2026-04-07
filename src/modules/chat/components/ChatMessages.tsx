@@ -1,5 +1,7 @@
 import { cn } from '@/lib/utils';
 import { CopyButton } from '@/shared/components/CopyButton';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   id: string;
@@ -37,7 +39,15 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
                     : 'text-foreground max-w-full bg-transparent',
                 )}
               >
-                <p className="text-[16px] font-medium">{message.content}</p>
+                {message.role === 'assistant' ? (
+                  <div className="markdown-content text-[16px]">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="text-[16px] font-medium">{message.content}</p>
+                )}
                 {message.role === 'assistant' && (
                   <div className="mt-2 ml-[-6px] flex items-center gap-2">
                     <CopyButton content={message.content} />
