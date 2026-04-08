@@ -1,8 +1,8 @@
-import { chatService } from '@/modules/chat/service/chat.service';
+import { conversationsService } from '@/modules/conversations/service/conversations.service';
 
 export async function GET() {
   try {
-    const conversations = await chatService.getConversations();
+    const conversations = await conversationsService.getConversations();
 
     return new Response(JSON.stringify({ conversations }), {
       status: 200,

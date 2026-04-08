@@ -17,11 +17,11 @@ import {
   useSidebar,
 } from '@/shared/components/ui/sidebar';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
 import { SidebarUnauthenticated } from './SidebarUnauthenticated';
 import { SidebarUser } from './SidebarUser';
+import { RecentConversationItem } from './RecentConversationItem';
 
 export default function Sidebar() {
   const { toggleSidebar, open: isSidebarOpen } = useSidebar();
@@ -98,11 +98,7 @@ export default function Sidebar() {
                 ) : (
                   recentChats.map((chat) => (
                     <SidebarMenuItem key={chat.id}>
-                      <SidebarMenuButton asChild>
-                        <Link href={`/chat/${chat.id}`}>
-                          <span className="truncate">{chat.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                      <RecentConversationItem chat={chat} />
                     </SidebarMenuItem>
                   ))
                 )}

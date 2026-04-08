@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { SupabaseClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
+import { conversationsService } from '@/modules/conversations/service/conversations.service';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -35,7 +36,7 @@ export class ChatService {
     let finalConversationId = conversationId;
 
     if (!finalConversationId) {
-      finalConversationId = await this.createConversation(
+      finalConversationId = await conversationsService.createConversation(
         user.id,
         messages,
         supabase,
@@ -61,11 +62,14 @@ export class ChatService {
     return { conversationId: finalConversationId, stream };
   }
 
-  async getConversationWithMessages(
-    conversationId: string,
-  ): Promise<{
+  async getConversationWithMessages(conversationId: string): Promise<{
     conversation: { id: string; title: string; user_id: string };
-    messages: Array<{ id: string; content: string; role: string; created_at: string }>;
+    messages: Array<{
+      id: string;
+      content: string;
+      role: string;
+      created_at: string;
+    }>;
   }> {
     const supabase = await createClient();
     const {
@@ -76,69 +80,22 @@ export class ChatService {
       throw new Error('Unauthorized');
     }
 
-    const conversation = await this.getConversation(conversationId, user.id, supabase);
+    const conversation = await conversationsService.getConversation(
+      conversationId,
+      user.id,
+      supabase,
+    );
     const messages = await this.getMessages(conversationId, supabase);
 
     return { conversation, messages };
   }
 
-  async getConversations(): Promise<
-    Array<{
-      id: string;
-      title: string;
-      description: string | null;
-      created_at: string;
-      updated_at: string;
-      is_archived: boolean;
-    }>
-  > {
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      throw new Error('Unauthorized');
-    }
-
-    const { data, error } = await supabase
-      .from('conversations')
-      .select('id, title, description, created_at, updated_at, is_archived')
-      .eq('user_id', user.id)
-      .eq('is_archived', false)
-      .order('updated_at', { ascending: false })
-      .limit(50);
-
-    if (error) {
-      throw new Error(`Failed to fetch conversations: ${error.message}`);
-    }
-
-    return data || [];
-  }
-
-  private async getConversation(
-    conversationId: string,
-    userId: string,
-    supabase: SupabaseClient,
-  ): Promise<{ id: string; title: string; user_id: string }> {
-    const { data, error } = await supabase
-      .from('conversations')
-      .select('id, title, user_id')
-      .eq('id', conversationId)
-      .eq('user_id', userId)
-      .single();
-
-    if (error || !data) {
-      throw new Error('Conversation not found');
-    }
-
-    return data;
-  }
-
   private async getMessages(
     conversationId: string,
     supabase: SupabaseClient,
-  ): Promise<Array<{ id: string; content: string; role: string; created_at: string }>> {
+  ): Promise<
+    Array<{ id: string; content: string; role: string; created_at: string }>
+  > {
     const { data, error } = await supabase
       .from('messages')
       .select('id, content, role, created_at')
@@ -150,30 +107,6 @@ export class ChatService {
     }
 
     return data || [];
-  }
-
-  private async createConversation(
-    userId: string,
-    messages: ChatMessage[],
-    supabase: SupabaseClient,
-  ): Promise<string> {
-    const userMessage = messages[messages.length - 1];
-    const title = userMessage.content.substring(0, 50) || 'New Conversation';
-
-    const { data, error } = await supabase
-      .from('conversations')
-      .insert({
-        user_id: userId,
-        title,
-      })
-      .select('id')
-      .single();
-
-    if (error) {
-      throw new Error(`Failed to create conversation: ${error.message}`);
-    }
-
-    return data.id;
   }
 
   private async saveMessage(
