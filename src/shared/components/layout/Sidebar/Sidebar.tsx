@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/modules/auth';
+import { useConversations } from '@/modules/conversations';
 import { Button } from '@/shared/components/ui/button';
 import {
   Sidebar as SidebarComponent,
@@ -16,6 +17,7 @@ import {
   useSidebar,
 } from '@/shared/components/ui/sidebar';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
 import { SidebarUnauthenticated } from './SidebarUnauthenticated';
@@ -25,15 +27,15 @@ export default function Sidebar() {
   const { toggleSidebar, open: isSidebarOpen } = useSidebar();
   const [isLogoHovering, setIsLogoHovering] = useState(false);
   const { isAuthenticated } = useAuth();
+  const { data: recentChats = [], isLoading } = useConversations();
 
   const handleLogoClick = () => {
-    isSidebarOpen ? (window.location.href = '/') : toggleSidebar();
+    if (isSidebarOpen) {
+      window.location.href = '/';
+    } else {
+      toggleSidebar();
+    }
   };
-
-  const recentChats = [
-    { id: 1, title: 'Chat 1' },
-    { id: 2, title: 'Chat 2' },
-  ];
 
   return (
     <SidebarComponent collapsible="icon">
@@ -81,18 +83,32 @@ export default function Sidebar() {
         </SidebarGroup>
 
         <SidebarGroup className="mt-5 p-0 group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Недавние</SidebarGroupLabel>
-          <SidebarMenu>
-            {recentChats.map((chat) => (
-              <SidebarMenuItem key={chat.id}>
-                <SidebarMenuButton asChild>
-                  <a href={'item.url'}>
-                    <span>{chat.title}</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
+          {isAuthenticated && (
+            <>
+              <SidebarGroupLabel>Недавние</SidebarGroupLabel>
+              <SidebarMenu>
+                {isLoading ? (
+                  <div className="px-2 py-2 text-sm text-muted-foreground">
+                    Загрузка...
+                  </div>
+                ) : recentChats.length === 0 ? (
+                  <div className="px-2 py-2 text-sm text-muted-foreground">
+                    Нет чатов
+                  </div>
+                ) : (
+                  recentChats.map((chat) => (
+                    <SidebarMenuItem key={chat.id}>
+                      <SidebarMenuButton asChild>
+                        <Link href={`/chat/${chat.id}`}>
+                          <span className="truncate">{chat.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))
+                )}
+              </SidebarMenu>
+            </>
+          )}
         </SidebarGroup>
       </SidebarContent>
 
