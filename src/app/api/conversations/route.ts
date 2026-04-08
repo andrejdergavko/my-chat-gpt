@@ -1,22 +1,19 @@
-import { ConversationsService } from '@/modules/conversations/service/conversations.service';
-import { NextResponse } from 'next/server';
+import { chatService } from '@/modules/chat/service/chat.service';
 
 export async function GET() {
   try {
-    const service = new ConversationsService();
-    const conversations = await service.getAllConversations();
+    const conversations = await chatService.getConversations();
 
-    return NextResponse.json(conversations);
-  } catch (error) {
-    console.error('Error fetching conversations:', error);
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : 'Failed to fetch conversations',
-      },
-      { status: 500 },
-    );
+    return new Response(JSON.stringify({ conversations }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : 'Internal server error';
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

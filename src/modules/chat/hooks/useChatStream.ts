@@ -10,6 +10,7 @@ export interface Message {
 export function useChatStream(initialMessages: Message[] = []) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const sendMessage = async (content: string) => {
@@ -42,7 +43,10 @@ export function useChatStream(initialMessages: Message[] = []) {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({
+          messages: apiMessages,
+          conversationId: conversationId || undefined,
+        }),
         signal: abortControllerRef.current.signal,
       });
 
@@ -70,7 +74,12 @@ export function useChatStream(initialMessages: Message[] = []) {
             const parsed = JSON.parse(data) as {
               text?: string;
               error?: string;
+              conversationId?: string;
             };
+
+            if (parsed.conversationId && !conversationId) {
+              setConversationId(parsed.conversationId);
+            }
 
             if (parsed.text) {
               setMessages((prev) =>
@@ -112,5 +121,5 @@ export function useChatStream(initialMessages: Message[] = []) {
     }
   };
 
-  return { messages, isStreaming, sendMessage };
+  return { messages, isStreaming, sendMessage, conversationId };
 }
