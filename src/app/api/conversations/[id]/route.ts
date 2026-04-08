@@ -2,10 +2,10 @@ import { chatService } from '@/modules/chat/service/chat.service';
 
 export async function GET(
   _request: unknown,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const conversationId = params.id;
+    const { id: conversationId } = await params;
     const { conversation, messages } =
       await chatService.getConversationWithMessages(conversationId);
 

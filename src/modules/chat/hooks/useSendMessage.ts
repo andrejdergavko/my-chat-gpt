@@ -7,13 +7,24 @@ export interface Message {
   timestamp?: Date;
 }
 
-export function useChatStream(initialMessages: Message[] = []) {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+interface UseSendMessageProps {
+  conversationId?: string;
+  onMessagesUpdate: (updater: (prev: Message[]) => Message[]) => void;
+  onConversationIdUpdate?: (id: string) => void;
+}
+
+export function useSendMessage({
+  conversationId,
+  onMessagesUpdate,
+  onConversationIdUpdate,
+}: UseSendMessageProps) {
   const [isStreaming, setIsStreaming] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const sendMessage = async (content: string) => {
+  const sendMessage = async (
+    messages: Message[],
+    content: string,
+  ): Promise<boolean> => {
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -34,7 +45,7 @@ export function useChatStream(initialMessages: Message[] = []) {
       content: m.content,
     }));
 
-    setMessages((prev) => [...prev, userMessage, assistantMessage]);
+    onMessagesUpdate((prev) => [...prev, userMessage, assistantMessage]);
     setIsStreaming(true);
 
     try {
@@ -77,12 +88,12 @@ export function useChatStream(initialMessages: Message[] = []) {
               conversationId?: string;
             };
 
-            if (parsed.conversationId && !conversationId) {
-              setConversationId(parsed.conversationId);
+            if (parsed.conversationId && !conversationId && onConversationIdUpdate) {
+              onConversationIdUpdate(parsed.conversationId);
             }
 
             if (parsed.text) {
-              setMessages((prev) =>
+              onMessagesUpdate((prev) =>
                 prev.map((msg) =>
                   msg.id === assistantMessageId
                     ? { ...msg, content: msg.content + parsed.text }
@@ -92,7 +103,7 @@ export function useChatStream(initialMessages: Message[] = []) {
             }
 
             if (parsed.error) {
-              setMessages((prev) =>
+              onMessagesUpdate((prev) =>
                 prev.map((msg) =>
                   msg.id === assistantMessageId
                     ? { ...msg, content: `Ошибка: ${parsed.error}` }
@@ -105,21 +116,28 @@ export function useChatStream(initialMessages: Message[] = []) {
           }
         }
       }
-    } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return;
 
-      setMessages((prev) =>
+      return true;
+    } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') return false;
+
+      onMessagesUpdate((prev) =>
         prev.map((msg) =>
           msg.id === assistantMessageId
             ? { ...msg, content: 'Произошла ошибка при получении ответа.' }
             : msg,
         ),
       );
+
+      return false;
     } finally {
       setIsStreaming(false);
-      abortControllerRef.current = null;
     }
   };
 
-  return { messages, isStreaming, sendMessage, conversationId };
+  const cancel = () => {
+    abortControllerRef.current?.abort();
+  };
+
+  return { sendMessage, cancel, isStreaming };
 }
