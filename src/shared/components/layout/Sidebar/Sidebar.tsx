@@ -19,6 +19,7 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 import { Sidebar as SidebarIcon, SquarePen } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { SidebarUnauthenticated } from './SidebarUnauthenticated';
 import { SidebarUser } from './SidebarUser';
 import { RecentConversationItem } from './RecentConversationItem';
@@ -28,6 +29,7 @@ export default function Sidebar() {
   const [isLogoHovering, setIsLogoHovering] = useState(false);
   const { isAuthenticated } = useAuth();
   const { data: recentChats = [], isLoading } = useConversations();
+  const router = useRouter();
 
   const handleLogoClick = () => {
     if (isSidebarOpen) {
@@ -35,6 +37,10 @@ export default function Sidebar() {
     } else {
       toggleSidebar();
     }
+  };
+
+  const handleNewChat = () => {
+    router.push('/');
   };
 
   return (
@@ -74,6 +80,7 @@ export default function Sidebar() {
                 variant="default"
                 size="default"
                 tooltip="Новый чат"
+                onClick={handleNewChat}
               >
                 <SquarePen />
                 <span className="font-semibold">Новый чат</span>
