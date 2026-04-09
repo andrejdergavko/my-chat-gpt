@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
 import { SidebarMenuButton } from '@/shared/components/ui/sidebar';
+import { useSlugParam } from '@/shared/hooks/useSlugParam';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Archive, MoreHorizontal } from 'lucide-react';
@@ -17,11 +18,11 @@ interface RecentConversationItemProps {
   chat: Conversation;
 }
 
-export function RecentConversationItem({
-  chat,
-}: RecentConversationItemProps) {
+export function RecentConversationItem({ chat }: RecentConversationItemProps) {
   const { mutate: archive, isPending } = useArchiveConversation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const currentConversationId = useSlugParam(1, 'chat');
+  const isActive = currentConversationId === chat.id;
 
   const handleArchive = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -30,8 +31,12 @@ export function RecentConversationItem({
   };
 
   return (
-    <div className="group flex items-center gap-2">
-      <SidebarMenuButton asChild className="flex-1">
+    <div className={`group/item flex items-center gap-2`}>
+      <SidebarMenuButton
+        asChild
+        className={`flex-1 transition-colors`}
+        isActive={isActive || isMenuOpen}
+      >
         <div>
           <Link
             href={`/chat/${chat.id}`}
@@ -44,7 +49,11 @@ export function RecentConversationItem({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 w-8 p-0 text-gray-400 transition-none  hover:text-white hover:bg-none focus:outline-none focus-visible:outline-none"
+                  className={`h-8 w-8 p-0 text-gray-400 transition-opacity hover:text-white hover:bg-none focus:outline-none focus-visible:outline-none ${
+                    isMenuOpen
+                      ? 'opacity-100'
+                      : 'opacity-0 group-hover/item:opacity-100'
+                  }`}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
