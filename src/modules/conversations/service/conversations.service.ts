@@ -1,13 +1,40 @@
 import { createClient } from '@/lib/supabase/server';
 import { SupabaseClient } from '@supabase/supabase-js';
+import OpenAI from 'openai';
 import { Conversation } from '../types';
 
-interface ChatMessage {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-}
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export class ConversationsService {
+  private async generateConversationTitle(
+    userMessage: string,
+  ): Promise<string> {
+    try {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4.1-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a title generator for conversations. Generate a short, concise title (max 10 words) for the given user message. Respond with only the title, no additional text.',
+          },
+          {
+            role: 'user',
+            content: userMessage,
+          },
+        ],
+        max_tokens: 20,
+      });
+
+      const title = response.choices[0].message.content?.trim() || 'New Conversation';
+      return title.substring(0, 100);
+    } catch (err) {
+      console.error('Failed to generate title:', err);
+      return userMessage.substring(0, 50) || 'New Conversation';
+    }
+  }
+
   async getAllConversations(): Promise<Conversation[]> {
     const supabase = await createClient();
 
@@ -99,11 +126,10 @@ export class ConversationsService {
 
   async createConversation(
     userId: string,
-    messages: ChatMessage[],
+    userMessage: string,
     supabase: SupabaseClient,
   ): Promise<string> {
-    const userMessage = messages[messages.length - 1];
-    const title = userMessage.content.substring(0, 50) || 'New Conversation';
+    const title = await this.generateConversationTitle(userMessage);
 
     const { data, error } = await supabase
       .from('conversations')

@@ -34,16 +34,16 @@ export class ChatService {
     }
 
     let finalConversationId = conversationId;
+    const userMessage = messages[messages.length - 1];
 
     if (!finalConversationId) {
       finalConversationId = await conversationsService.createConversation(
         user.id,
-        messages,
+        userMessage.content,
         supabase,
       );
     }
 
-    const userMessage = messages[messages.length - 1];
     await this.saveMessage(
       finalConversationId,
       user.id,
