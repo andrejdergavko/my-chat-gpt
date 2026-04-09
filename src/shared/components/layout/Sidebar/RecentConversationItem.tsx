@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
 import { SidebarMenuButton } from '@/shared/components/ui/sidebar';
+import { TruncatedText } from '@/shared/components/ui/truncated-text';
 import { useSlugParam } from '@/shared/hooks/useSlugParam';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -40,9 +41,9 @@ export function RecentConversationItem({ chat }: RecentConversationItemProps) {
         <div>
           <Link
             href={`/chat/${chat.id}`}
-            className="flex-1 flex items-center justify-between"
+            className="flex-1 flex items-center justify-between min-w-0"
           >
-            <span className="truncate">{chat.title}</span>
+            <TruncatedText>{chat.title}</TruncatedText>
 
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger asChild>
