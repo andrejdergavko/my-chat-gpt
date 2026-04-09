@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useConversationMessages } from '../hooks/useConversationMessages';
 import { useSendMessage, type Message } from '../hooks/useSendMessage';
 import { ChatInput } from './ChatInput';
@@ -20,12 +21,18 @@ export function Chat({ conversationId: initialConversationId }: ChatProps) {
     initialConversationId,
   );
 
+  const queryClient = useQueryClient();
+
   const allMessages = [...loadedMessages, ...newMessages];
 
   const { sendMessage, isStreaming } = useSendMessage({
     conversationId,
     onMessagesUpdate: setNewMessages,
-    onConversationIdUpdate: setConversationId,
+    onConversationIdUpdate: (newConversationId: string) => {
+      setConversationId(newConversationId);
+      queryClient.invalidateQueries({ queryKey: ['conversations'] });
+      window.history.replaceState({}, '', `/chat/${newConversationId}`);
+    },
   });
 
   const handleSendMessage = async (content: string) => {

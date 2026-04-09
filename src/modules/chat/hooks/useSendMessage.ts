@@ -48,6 +48,8 @@ export function useSendMessage({
     onMessagesUpdate((prev) => [...prev, userMessage, assistantMessage]);
     setIsStreaming(true);
 
+    let receivedConversationId: string | undefined;
+
     try {
       abortControllerRef.current = new AbortController();
 
@@ -88,8 +90,8 @@ export function useSendMessage({
               conversationId?: string;
             };
 
-            if (parsed.conversationId && !conversationId && onConversationIdUpdate) {
-              onConversationIdUpdate(parsed.conversationId);
+            if (parsed.conversationId && !conversationId) {
+              receivedConversationId = parsed.conversationId;
             }
 
             if (parsed.text) {
@@ -117,9 +119,14 @@ export function useSendMessage({
         }
       }
 
+      if (receivedConversationId && !conversationId && onConversationIdUpdate) {
+        onConversationIdUpdate(receivedConversationId);
+      }
+
       return true;
     } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return false;
+      if (err instanceof DOMException && err.name === 'AbortError')
+        return false;
 
       onMessagesUpdate((prev) =>
         prev.map((msg) =>
