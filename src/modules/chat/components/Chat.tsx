@@ -1,8 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useConversationMessages } from '../hooks/useConversationMessages';
+import {
+  fetchConversationMessages,
+  useConversationMessages,
+} from '../hooks/useConversationMessages';
 import { useSendMessage, type Message } from '../hooks/useSendMessage';
 import { ChatInput } from './ChatInput';
 import { ChatMessages } from './ChatMessages';
@@ -22,16 +26,22 @@ export function Chat({ conversationId: initialConversationId }: ChatProps) {
   );
 
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   const allMessages = [...loadedMessages, ...newMessages];
 
   const { sendMessage, isStreaming } = useSendMessage({
     conversationId,
     onMessagesUpdate: setNewMessages,
-    onConversationIdUpdate: (newConversationId: string) => {
+    onConversationIdUpdate: async (newConversationId: string) => {
       setConversationId(newConversationId);
       queryClient.invalidateQueries({ queryKey: ['conversations'] });
-      window.history.replaceState({}, '', `/chat/${newConversationId}`);
+
+      await queryClient.fetchQuery({
+        queryKey: ['conversation', newConversationId],
+        queryFn: () => fetchConversationMessages(newConversationId),
+      });
+
+      router.replace(`/chat/${newConversationId}`);
     },
   });
 
